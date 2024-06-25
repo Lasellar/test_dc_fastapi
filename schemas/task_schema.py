@@ -7,7 +7,7 @@ class TaskSchema(BaseModel):
     title: str = Field(max_length=40)
     description: str = Field(max_length=60)
     user_id: int
-    user_username: str
+    user_username: str = Field(default=None)
     period: str = Field(default=None)
 
     class Config:

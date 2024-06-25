@@ -1,6 +1,6 @@
 from sqlalchemy import (
     Column, Integer, String, ForeignKey,
-    DateTime, func
+    DateTime
 )
 from sqlalchemy.orm import relationship
 import datetime as dt
@@ -29,10 +29,6 @@ class TaskModel(Base):
         ).date
     )
     period = Column(String)
-
-    @property
-    def user_username(self):
-        return f"{self.user.username}"
 
     @property
     def period(self):
