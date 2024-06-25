@@ -17,7 +17,6 @@ class TaskModel(Base):
     description = Column(String)
     user = relationship('UserModel', back_populates='tasks')
     user_id = Column(Integer, ForeignKey('users.id'))
-    user_username = Column(String)
     created = Column(
         DateTime,
         default=dt.datetime.now(timezone('UTC')).date,
@@ -29,6 +28,7 @@ class TaskModel(Base):
         ).date
     )
     period = Column(String)
+    status = Column(String, default='not started')
 
     @property
     def period(self):
