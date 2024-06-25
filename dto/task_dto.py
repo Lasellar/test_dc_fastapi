@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from typing import Optional
 from datetime import datetime
 
 
@@ -14,3 +13,17 @@ class TaskUpdate(BaseModel):
     description: str | None = None
     deadline: datetime | None = None
     status: str | None = None
+
+
+class TaskSchema(BaseModel):
+    id: int
+    title: str = Field(max_length=40)
+    description: str = Field(max_length=60)
+    user_id: int
+    created: datetime
+    deadline: datetime
+    period: str = Field()
+    status: str = Field()
+
+    class Config:
+        orm_mode = True

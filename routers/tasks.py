@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from database import get_db
 from services import tasks_services as ts
 from dto import task_dto
-from schemas.task_schema import TaskSchema
 
 
 router = APIRouter()
@@ -13,7 +12,7 @@ router = APIRouter()
 @router.post(
     '/',
     status_code=status.HTTP_201_CREATED,
-    response_model=TaskSchema,
+    response_model=task_dto.TaskSchema,
     responses={
         404: {'description': 'Not found'}
     }
@@ -41,7 +40,7 @@ def get_task(identifier: int | str, db: Session = Depends(get_db)):
 @router.patch(
     '/{identifier}',
     status_code=status.HTTP_201_CREATED,
-    response_model=TaskSchema
+    response_model=task_dto.TaskSchema
 )
 def update(
     identifier: int | str,
@@ -58,7 +57,7 @@ def update(
 @router.delete(
     '/{identifier}',
     status_code=200,
-    response_model=TaskSchema
+    response_model=task_dto.TaskSchema
 )
 def delete(
     identifier: int | str,

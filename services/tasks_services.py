@@ -1,8 +1,6 @@
 from sqlalchemy.orm import Session
 
 from models.task import TaskModel
-from schemas.task_schema import TaskSchema
-from models.user import UserModel
 from dto import task_dto
 
 
