@@ -9,9 +9,8 @@ class Task(BaseModel):
     user_id: int
 
 
-class TaskUpdate(Task):
+class TaskUpdate(BaseModel):
     title: str | None = None
-    user_id: int | None = None
     description: str | None = None
     deadline: datetime | None = None
     status: str | None = None
