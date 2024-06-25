@@ -59,3 +59,17 @@ def update_task(
     return task
 
 
+def delete_task(
+    identifier: int | str,
+    db: Session
+):
+    task = get_task_queryset(identifier, db)
+    try:
+        with db:
+            db.delete(task)
+            db.commit()
+    except Exception as ex:
+        print(ex)
+        return ex
+    return task
+

@@ -43,7 +43,7 @@ def get_task(identifier: int | str, db: Session = Depends(get_db)):
     status_code=status.HTTP_201_CREATED,
     response_model=TaskSchema
 )
-def update_task(
+def update(
     identifier: int | str,
     data: task_dto.TaskUpdate,
     db: Session = Depends(get_db),
@@ -53,3 +53,15 @@ def update_task(
         data=data,
         db=db
     )
+
+
+@router.delete(
+    '/{identifier}',
+    status_code=200,
+    response_model=TaskSchema
+)
+def delete(
+    identifier: int | str,
+    db: Session = Depends(get_db)
+):
+    return ts.delete_task(identifier=identifier, db=db)
