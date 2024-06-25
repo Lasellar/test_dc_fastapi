@@ -23,14 +23,16 @@ def create(data: task_dto.Task, db: Session = Depends(get_db)):
 
 
 @router.get(
-    '/get_all'
+    '/get_all',
+    status_code=status.HTTP_200_OK
 )
 def get_tasks(db: Session = Depends(get_db)):
     return ts.get_tasks(db=db)
 
 
 @router.get(
-    '/{identifier}'
+    '/{identifier}',
+    status_code=status.HTTP_200_OK
 )
-def get_task(identifier: int | str = None, db: Session = Depends(get_db)):
+def get_task(identifier: int | str, db: Session = Depends(get_db)):
     return ts.get_task(identifier=identifier, db=db)

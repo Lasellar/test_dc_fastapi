@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from models.task import TaskModel
+from schemas.task_schema import TaskSchema
 from models.user import UserModel
 from dto import task_dto
 
@@ -18,11 +19,14 @@ def create_task(data: task_dto.Task, db: Session):
 
 
 def get_task(identifier: int | str, db: Session):
-    if type(identifier) == int:
-        return db.query(TaskModel).filter(
-            TaskModel.id == identifier).first()
-    return db.query(TaskModel).filter(
-        TaskModel.title == identifier).first()
+    queryset = db.query(TaskModel).filter(
+        TaskModel.id == identifier).first()
+    if not queryset:
+        queryset = db.query(TaskModel).filter(
+            TaskModel.title == identifier).first()
+    if queryset:
+        return queryset
+    return '11111111'
 
 
 def get_tasks(db: Session):

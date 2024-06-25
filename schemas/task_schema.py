@@ -7,8 +7,10 @@ class TaskSchema(BaseModel):
     title: str = Field(max_length=40)
     description: str = Field(max_length=60)
     user_id: int
-    period: str = Field(default=None)
-    status: str = Field(max_length=15)
+    created: datetime
+    deadline: datetime
+    period: str = Field()
+    status: str = Field()
 
     class Config:
         orm_mode = True
