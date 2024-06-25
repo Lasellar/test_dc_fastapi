@@ -36,3 +36,20 @@ def get_tasks(db: Session = Depends(get_db)):
 )
 def get_task(identifier: int | str, db: Session = Depends(get_db)):
     return ts.get_task(identifier=identifier, db=db)
+
+
+@router.patch(
+    '/{identifier}',
+    status_code=status.HTTP_201_CREATED,
+    response_model=TaskSchema
+)
+def update_task(
+    identifier: int | str,
+    data: task_dto.TaskUpdate,
+    db: Session = Depends(get_db),
+):
+    return ts.update_task(
+        identifier=identifier,
+        data=data,
+        db=db
+    )

@@ -17,7 +17,10 @@ def create_user(data: user_dto.User, db: Session):
 
 
 def get_user(id: int, db: Session):
-    return db.query(UserModel).filter(UserModel.id == id).first()
+    user = db.query(UserModel).filter(UserModel.id == id).first()
+    if user:
+        return user
+    return 'User does not exist'
 
 
 def update(id: int, data: user_dto.User, db: Session):
