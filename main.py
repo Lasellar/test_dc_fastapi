@@ -6,8 +6,8 @@ from routers import tasks as tasks_router
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI()
-app.include_router(users_router.router, prefix='/users')
-app.include_router(tasks_router.router, prefix='/tasks')
+app.include_router(users_router.router, prefix='/users', tags=['user'])
+app.include_router(tasks_router.router, prefix='/tasks', tags=['task'])
 
 if __name__ == '__main__':
     uvicorn.run(

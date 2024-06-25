@@ -4,6 +4,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 import datetime as dt
+from pytz import timezone
 
 from database import Base
 
@@ -11,17 +12,29 @@ from database import Base
 class TaskModel(Base):
     __tablename__ = 'tasks'
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, unique=True, index=True)
-    description = Column(String, index=True)
+    id = Column(Integer, primary_key=True)
+    title = Column(String, unique=True)
+    description = Column(String)
     user = relationship('UserModel', back_populates='tasks')
     user_id = Column(Integer, ForeignKey('users.id'))
-    """created = Column(DateTime, default=dt.datetime.now().date(), index=True)
+    user_username = Column(String)
+    created = Column(
+        DateTime,
+        default=dt.datetime.now(timezone('UTC')).date,
+    )
     deadline = Column(
         DateTime,
-        default=created+dt.timedelta(days=7), index=True)
-    period = Column(String, index=True)
+        default=(
+            dt.datetime.now(timezone('UTC')) + dt.timedelta(days=7)
+        ).date
+    )
+    period = Column(String)
+
+    @property
+    def user_username(self):
+        return f"{self.user.username}"
 
     @property
     def period(self):
-        return f'{str(self.created)}-{str(self.deadline)}'"""
+        return (f"{str(self.created.strftime('%d.%m.%y'))}"
+                f"-{str(self.deadline.strftime('%d.%m.%y'))}")

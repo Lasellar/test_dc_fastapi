@@ -4,7 +4,7 @@ from models.user import UserModel
 from dto import user_dto
 
 
-async def create_user(data: user_dto.User, db: Session):
+def create_user(data: user_dto.User, db: Session):
     user = UserModel(**data.dict())
     try:
         db.add(user)
@@ -16,11 +16,11 @@ async def create_user(data: user_dto.User, db: Session):
     return user
 
 
-async def get_user(id: int, db: Session):
+def get_user(id: int, db: Session):
     return db.query(UserModel).filter(UserModel.id == id).first()
 
 
-async def update(id: int, data: user_dto.User, db: Session):
+def update(id: int, data: user_dto.User, db: Session):
     user = db.query(UserModel).filter(UserModel.id == id).first()
     user.username = data.username
     db.add(user)
@@ -29,7 +29,7 @@ async def update(id: int, data: user_dto.User, db: Session):
     return user
 
 
-async def remove(id: int, db: Session):
+def remove(id: int, db: Session):
     user = db.query(UserModel).filter(UserModel.id == id).first()
     db.commit()
     return user

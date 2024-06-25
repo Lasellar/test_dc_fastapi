@@ -8,7 +8,8 @@ from database import Base
 
 class UserModel(Base):
     __tablename__ = 'users'
+    # посмотреть mapped column
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True)
     tasks = relationship('TaskModel', back_populates='user')
