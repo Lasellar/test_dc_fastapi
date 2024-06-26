@@ -9,7 +9,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 app.include_router(users_router.router, prefix='/users', tags=['user'])
 app.include_router(tasks_router.router, prefix='/tasks', tags=['task'])
-app.include_router(auth_router, prefix='/auth', tags=['auth'])
+app.include_router(auth_router, prefix='/access', tags=['auth'])
 
 if __name__ == '__main__':
     uvicorn.run(
