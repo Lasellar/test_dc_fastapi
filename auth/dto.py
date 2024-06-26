@@ -6,6 +6,7 @@ class User4Auth(BaseModel):
     password: str | None = None
     hashed_password: str | None = None
     disabled: bool | None = False
+    init_data: str
 
 
 class UserResponse(BaseModel):

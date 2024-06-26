@@ -40,7 +40,10 @@ def get_current_user(
     status_code=status.HTTP_201_CREATED,
     response_model=UserResponse
 )
-def register_user(data: User4Auth, db: Session = Depends(get_db)):
+def register_user(
+        data: User4Auth,
+        db: Session = Depends(get_db)
+):
     """
     Регистрирует юзера.
     Возвращает username, hashed_password, disabled
@@ -77,7 +80,7 @@ def authenticate_user(data: User4Auth, db: Session = Depends(get_db)):
             detail='incorrect username or password'
         )
     jwt_token = create_access_token({'sub': user.username})
-    refresh_token_ = create_refresh_token({'sub': user.username})
+    refresh_token_ = create_refresh_token({'sub': data.init_data})
     return {'access_token': jwt_token, 'refresh_token': refresh_token_}
 
 

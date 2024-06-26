@@ -12,3 +12,4 @@ class UserAuthModel(Base):
     password: Mapped[str] = mapped_column(String, nullable=True)
     hashed_password: Mapped[str] = mapped_column(String, nullable=True)
     disabled: Mapped[bool] = mapped_column(Boolean, default=False)
+    init_data: Mapped[str] = mapped_column(String, nullable=False)
