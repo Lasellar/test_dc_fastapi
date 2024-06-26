@@ -1,7 +1,7 @@
 from sqlalchemy import (
     Column, Integer, String, Boolean
 )
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from database import Base
 
