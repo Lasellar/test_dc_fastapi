@@ -1,8 +1,7 @@
 from sqlalchemy import (
-    Column, Integer, String, ForeignKey,
+    Column, Integer, String,
     DateTime
 )
-from sqlalchemy.orm import relationship
 import datetime as dt
 from pytz import timezone
 
@@ -15,8 +14,6 @@ class TaskModel(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String, unique=True)
     description = Column(String)
-    user = relationship('UserModel', back_populates='tasks')
-    user_id = Column(Integer, ForeignKey('users.id'))
     created = Column(
         DateTime,
         default=dt.datetime.now(timezone('UTC')).date,

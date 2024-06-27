@@ -18,11 +18,11 @@ def get_task_queryset(identifier: int | str, db: Session):
 def create_task(data: task_dto.Task, db: Session):
     task = TaskModel(**data.dict())
     try:
-        db.add(task)
-        db.commit()
-        db.refresh(task)
+        with db:
+            db.add(task)
+            db.commit()
+            db.refresh(task)
     except Exception as ex:
-        print(ex)
         return ex
     return task
 
@@ -48,11 +48,11 @@ def update_task(
     task.status = data.status if data.status else task.status
 
     try:
-        db.add(task)
-        db.commit()
-        db.refresh(task)
+        with db:
+            db.add(task)
+            db.commit()
+            db.refresh(task)
     except Exception as ex:
-        print(ex)
         return ex
     return task
 
