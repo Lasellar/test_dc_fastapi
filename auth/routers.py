@@ -105,6 +105,7 @@ def get_user_me(current_user: UserAuthModel = Depends(get_current_user)):
 
 
 @router.post('/refresh_token')
-def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
-    return refresh(refresh_token, db)
+def refresh_token(data: dict, db: Session = Depends(get_db)):
+    refresh_token_ = data['raw_init_data']
+    return refresh(refresh_token_, db)
 

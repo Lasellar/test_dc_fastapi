@@ -34,16 +34,8 @@ def get_init_data(raw_init_data: str, token: str = BOT_TOKEN):
 
 
 def refresh_token(refresh_token: str, db: Session):
-    try:
-        decoded_data = jwt.decode(
-            refresh_token, refresh_token, algorithms=[ALGORITHM])
-    except jwt.PyJWTError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='invalid refresh token'
-        )
     user = db.query(UserAuthModel).filter(
-        UserAuthModel.init_data == decoded_data['sub']).first()
+        UserAuthModel.raw_init_data == refresh_token).first()
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -51,8 +43,7 @@ def refresh_token(refresh_token: str, db: Session):
         )
     new_access_token = create_access_token({'sub': user.username})
     return {
-        'access_token': new_access_token,
-        'refresh_token': get_init_data()
+        'access_token': new_access_token
     }
 
 
